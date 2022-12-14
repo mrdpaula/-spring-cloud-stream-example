@@ -1,0 +1,59 @@
+spring:
+  cloud:
+    stream:
+      function:
+        definition: 'personConsumer;personProducer;animalConsumer;animalProducer'
+        bindings:
+          personConsumer-in-0: 'personIn'
+          personProducer-out-0: 'personOut'
+          animalConsumer-in-0: 'animalIn'
+          animalProducer-out-0: 'animalOut'
+#      binders:
+#        rabbit:
+#          type: 'rabbit'
+#          environment:
+#            spring:
+#              rabbitmq:
+#                username: 'guest'
+#                password: 'guest'
+#                virtual-host: '/spring-cloud-stream'
+      default:
+        binder: 'rabbit'
+        destination: 'amq.direct'
+        consumer:
+          concurrency: 5
+          max-attempts: 5
+          back-off-multiplier: 1
+          back-off-initial-interval: 100
+      bindings:
+        personIn:
+          group: 'person_queue'
+        personOut:
+          group: 'person_queue'
+        animalIn:
+          group: 'animal_queue'
+        animalOut:
+          group: 'animal_queue'
+      rabbit:
+        default:
+          consumer:
+            declare-exchange: false
+            queue-name-group-only: true
+            auto-bind-dlq: true
+            republish-to-dlq: true
+          producer:
+            declare-exchange: false
+            binding-queue: false
+        bindings:
+          personIn:
+            consumer:
+              binding-routing-key: 'person_queue'
+          animalIn:
+            consumer:
+              binding-routing-key: 'animal_queue'
+          personOut:
+            producer:
+              routing-key-expression: '''person_queue'''
+          animalOut:
+            producer:
+              routingKeyExpression: '''animal_queue'''
