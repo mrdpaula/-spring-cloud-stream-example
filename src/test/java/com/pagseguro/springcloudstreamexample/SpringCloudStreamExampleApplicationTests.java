@@ -1,13 +1,9 @@
-package com.pagseguro.rabbitcloudstream;
+package com.pagseguro.springcloudstreamexample;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RabbitCloudStreamApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
+class SpringCloudStreamExampleApplicationTests {
 
 }

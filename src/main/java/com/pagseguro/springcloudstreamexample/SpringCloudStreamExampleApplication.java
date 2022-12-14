@@ -1,4 +1,4 @@
-package com.pagseguro.rabbitcloudstream;
+package com.pagseguro.springcloudstreamexample;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

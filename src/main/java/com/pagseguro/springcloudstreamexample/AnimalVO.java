@@ -1,4 +1,4 @@
-package com.pagseguro.rabbitcloudstream;
+package com.pagseguro.springcloudstreamexample;
 
 import static org.springframework.messaging.support.MessageBuilder.withPayload;
 

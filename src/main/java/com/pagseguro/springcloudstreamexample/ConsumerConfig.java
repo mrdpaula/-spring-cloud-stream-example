@@ -1,4 +1,4 @@
-package com.pagseguro.rabbitcloudstream;
+package com.pagseguro.springcloudstreamexample;
 
 import java.util.function.Consumer;
 import org.apache.commons.logging.Log;

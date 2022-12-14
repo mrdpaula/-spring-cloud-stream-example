@@ -1,4 +1,4 @@
-package com.pagseguro.rabbitcloudstream;
+package com.pagseguro.springcloudstreamexample;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
