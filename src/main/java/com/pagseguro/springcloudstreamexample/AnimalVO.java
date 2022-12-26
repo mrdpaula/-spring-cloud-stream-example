@@ -1,8 +1,8 @@
 package com.pagseguro.springcloudstreamexample;
 
-import static org.springframework.messaging.support.MessageBuilder.withPayload;
-
 import org.springframework.messaging.Message;
+
+import static org.springframework.messaging.support.MessageBuilder.withPayload;
 
 public class AnimalVO {
 

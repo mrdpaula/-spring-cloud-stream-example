@@ -9,18 +9,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ConsumerConfig {
 
-
-  @Autowired
-  private ProcessorConfig processor;
   private final Log logger = LogFactory.getLog(getClass());
 
   @StreamListener(ProcessorConfig.PERSON_QUEUE)
-  public void personListener(PersonVO personVO) {
+  public void send(PersonVO personVO) {
     logger.info("Data received..." + personVO);
   }
 
   @StreamListener(ProcessorConfig.ANIMAL_QUEUE)
-  public void animalListener(AnimalVO animalVO) {
+  public void send(AnimalVO animalVO) {
     logger.info("Data received..." + animalVO);
   }
 

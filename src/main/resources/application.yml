@@ -1,21 +1,20 @@
 server:
   port: 8080
-
 spring:
   cloud:
     stream:
-      binders:
-        rabbit:
-          type: 'rabbit'
-          environment:
-            spring:
-              rabbitmq:
-                username: 'guest'
-                password: 'guest'
-                virtual-host: '/spring-cloud-stream'
+#      binders:
+#        rabbit:
+#          type: 'rabbit'
+#          environment:
+#            spring:
+#              rabbitmq:
+#                username: 'guest'
+#                password: 'guest'
+#                virtual-host: '/spring-cloud-stream'
       default:
         binder: 'rabbit'
-#        destination: 'amq.direct'
+        destination: 'amq.direct'
         consumer:
           concurrency: 5
           max-attempts: 5
@@ -33,7 +32,7 @@ spring:
       rabbit:
         default:
           consumer:
-#            declare-exchange: false
+            declare-exchange: false
             queue-name-group-only: true
             auto-bind-dlq: true
             republish-to-dlq: true
@@ -53,4 +52,3 @@ spring:
           animalOut:
             producer:
               routingKeyExpression: '''animal_queue'''
-
