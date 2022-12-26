@@ -3,10 +3,16 @@ services:
   rabbit:
     image: rabbitmq:management
     container_name: rabbitmq
-#    environment:
-#      - RABBITMQ_DEFAULT_USER=guest
-#      - RABBITMQ_DEFAULT_PASS=guest
-#      - RABBITMQ_DEFAULT_VHOST=/spring-cloud-stream
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_VHOST=/spring-cloud-stream
     ports:
       - "5672:5672"
       - "15672:15672"
+#networks:
+#  default:
+#    driver: bridge
+#    ipam:
+#      config:
+#        - subnet: 172.16.57.0/24

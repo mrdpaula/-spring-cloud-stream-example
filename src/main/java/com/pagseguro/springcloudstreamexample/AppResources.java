@@ -15,20 +15,17 @@ public class AppResources {
   private final Log logger = LogFactory.getLog(getClass());
 
   @Autowired
-  private EmitterProcessor<Message<PersonVO>> personEmitter;
-
-  @Autowired
-  private EmitterProcessor<Message<AnimalVO>> animalEmitter;
+  private ProducerConfig producer;
 
   @PostMapping("person")
   public void person(@RequestBody PersonVO person) {
     logger.info("m=person[POST] Received Person: " + person.toString());
-    personEmitter.onNext(person.toMessage());
+    producer.personProducer(person);
   }
 
   @PostMapping("animal")
   public void animal(@RequestBody AnimalVO animal) {
     logger.info("animal[POST] Received Animal: " + animal.toString());
-    animalEmitter.onNext(animal.toMessage());
+    producer.animalProducer(animal);
   }
 }
