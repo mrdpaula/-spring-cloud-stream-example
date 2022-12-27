@@ -1,40 +1,41 @@
 package com.pagseguro.springcloudstreamexample;
 
-import java.util.function.Supplier;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
-import reactor.core.publisher.EmitterProcessor;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Sinks;
 
-import static reactor.core.publisher.EmitterProcessor.create;
+import java.util.function.Supplier;
 
-@Configuration
+@Service
 public class ProducerConfig {
 
-  private final Log logger = LogFactory.getLog(getClass());
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-  @Bean
-  public EmitterProcessor<Message<PersonVO>> personEmitter() {
-    return create();
+  private final Sinks.Many<Message<PersonVO>> personSink = Sinks.many().multicast().onBackpressureBuffer();
+
+  private final Sinks.Many<Message<AnimalVO>> animalSink = Sinks.many().multicast().onBackpressureBuffer();
+
+  public void send(AnimalVO animalVO) {
+    logger.info("Data sent...{}", animalVO);
+    animalSink.tryEmitNext(animalVO.toMessage());
+  }
+
+  public void send(PersonVO personVO) {
+    logger.info("Data sent...{}", personVO);
+    personSink.tryEmitNext(personVO.toMessage());
   }
 
   @Bean
-  public Supplier<Flux<Message<PersonVO>>> personProducer(
-      final EmitterProcessor<Message<PersonVO>> emitter) {
-    return () -> emitter;
+  public Supplier<Flux<Message<PersonVO>>> personProducer() {
+    return () -> personSink.asFlux();
   }
 
   @Bean
-  public EmitterProcessor<Message<AnimalVO>> animalEmitter() {
-    return create();
-  }
-
-  @Bean
-  public Supplier<Flux<Message<AnimalVO>>> animalProducer(
-      final EmitterProcessor<Message<AnimalVO>> emitter) {
-    return () -> emitter;
+  public Supplier<Flux<Message<AnimalVO>>> animalProducer() {
+    return () -> animalSink.asFlux();
   }
 }
