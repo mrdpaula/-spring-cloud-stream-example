@@ -1,6 +1,9 @@
-server:
-  port: 8080
 spring:
+  rabbitmq:
+    host: 'node1.rabbitmq.dev.intranet.pags,node2.rabbitmq.dev.intranet.pags,node3.rabbitmq.dev.intranet.pags'
+    username: 'config-customization-incremental-batch'
+    password: 'eA92^6wWROdD$Djd%7C9NWaw'
+    virtual-host: '/config-customization-incremental-batch'
   cloud:
     stream:
       function:
@@ -10,15 +13,9 @@ spring:
           personProducer-out-0: 'personOut'
           animalConsumer-in-0: 'animalIn'
           animalProducer-out-0: 'animalOut'
-#      binders:
-#        rabbit:
-#          type: 'rabbit'
-#          environment:
-#            spring:
-#              rabbitmq:
-#                username: 'guest'
-#                password: 'guest'
-#                virtual-host: '/spring-cloud-stream'
+      binders:
+        rabbit:
+          type: 'rabbit'
       default:
         binder: 'rabbit'
         destination: 'amq.direct'
